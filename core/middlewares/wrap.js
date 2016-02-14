@@ -83,30 +83,31 @@ exports.process = function (req, res, next) {
                 content = $.html();
             }
 
-            var heagerFooter = getHeaderAndFooter();
+            var headerFooter = getHeaderAndFooter();
 
             // final data object for the template
             var templateJSON = {
                 engineVersion: global.engineVersion,
                 content: content,
                 head: head,
-                info: info
+                info: info,
+                headerNavItems: headerFooter.options.headerNavItems
             };
 
             try {
-                templateJSON.header = ejs.render(heagerFooter.header, templateJSON);
+                templateJSON.header = ejs.render(headerFooter.header, templateJSON);
             } catch(err){
-                var headerMsg = 'Error: EJS could render header template: ' + heagerFooter.headerPath;
+                var headerMsg = 'Error: EJS could render header template: ' + headerFooter.headerPath;
                 templateJSON.header = headerMsg;
                 global.log.warn(headerMsg, err.stack);
             }
 
             try {
-                templateJSON.footer = ejs.render(heagerFooter.footer, templateJSON, {
-                    filename: heagerFooter.footerPath
+                templateJSON.footer = ejs.render(headerFooter.footer, templateJSON, {
+                    filename: headerFooter.footerPath
                 });
             } catch(err){
-                var footerMsg = 'Error: EJS could render footer template: ' + heagerFooter.footerPath;
+                var footerMsg = 'Error: EJS could render footer template: ' + headerFooter.footerPath;
                 templateJSON.footer = footerMsg;
                 global.log.warn(footerMsg, err.stack);
             }

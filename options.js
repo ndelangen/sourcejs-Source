@@ -148,6 +148,14 @@ module.exports = {
                 // Page navigation hash update on scroll turned off because of performance issues
                 updateHash: false
             },
+            headerFooter: {
+              headerNavItems: [
+                {name: 'Home', path: '/'},
+                {name: 'Docs', path: '/docs/'},
+                {name: 'Twitter', path: 'http://twitter.com/sourcejs'},
+                {name: 'Mail', path: 'mailto:address@example.com'}
+              ]
+            },
 
             search: {
                 autofocusOnNavigationPage: true,
