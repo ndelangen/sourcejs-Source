@@ -83,25 +83,6 @@ exports.process = function (req, res, next) {
 				content = $.html();
 			}
 
-			// TODO get this from a new option or find an existing option suitable
-			var projectname = undefined;
-
-			var breadcrumb = req.path.split('/').reduce(function (result, item) {
-				if (item === '' && result.length === 0) {
-					return result.concat([{
-						name: projectname || 'Home',
-						path: '/'
-					}]);
-				} else if (item !== '') {
-					return result.concat([{
-						name: item,
-						path: (result[result.length - 1].path + item + '/')
-					}]);
-				} else {
-					return result;
-				}
-			}, []);
-
 			var heagerFooter = getHeaderAndFooter();
 
 			// final data object for the template
@@ -109,8 +90,7 @@ exports.process = function (req, res, next) {
 				engineVersion: global.engineVersion,
 				content: content,
 				head: head,
-				info: info,
-				breadcrumb: breadcrumb
+                info: info
 			};
 
 			try {
