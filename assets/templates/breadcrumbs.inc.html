@@ -1,0 +1,9 @@
+<!-- Core header, just for example, use /public/assets/templates/breadcrumbs.inc.html -->
+
+<nav class="source_breadcrumb_nav">
+	<ul class="source_breadcrumb_nav_lst">
+		<% for(var i=0; i<breadcrumb.length; i++) {%>
+			<li class="source_breadcrumb_nav_i"><a class="source_a_l" href="<%= breadcrumb[i].path %>"><%= breadcrumb[i].name %></a></li>
+		<% } %>
+	</ul>
+</nav>
