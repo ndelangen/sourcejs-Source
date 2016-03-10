@@ -90,6 +90,7 @@ exports.process = function (req, res, next) {
                 engineVersion: global.engineVersion,
                 content: content,
                 head: head,
+                breadcrumb: req.specData.breadcrumb || '',
                 info: info
             };
 

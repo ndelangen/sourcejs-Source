@@ -41,7 +41,7 @@ exports.process = function(req, res, next) {
         var contextOptions = req.specData.contextOptions;
         var specFiles = contextOptions.specInfo && contextOptions.specInfo.specFile ? [contextOptions.specInfo.specFile] : contextOptions.rendering.specFiles;
         var physicalPath = specUtils.getSpecFromDir(specPath, specFiles);
-        var processedData = req.specData.renderedHtml.replace(/^\s+|\s+$/g, '');
+        var renderedBreadcrumps = '';
 
         // TODO get this from a new option or find an existing option suitable
         var projectname = null;
@@ -63,18 +63,16 @@ exports.process = function(req, res, next) {
         }, []);
 
         try {
-            console.log(physicalPath);
-            processedData = ejs.render(processedData, {
-                breadcrumb: ejs.render(templates.breadcrumbs, {
-                    breadcrumb: breadcrumb
-                }),
+            renderedBreadcrumps = ejs.render(templates.breadcrumbs, {
+                breadcrumb: breadcrumb
             }, {
                 filename: physicalPath
             });
         } catch(err){
             global.log.warn('Could not pre-render spec with EJS: ' + req.path, err);
         }
-        req.specData.renderedHtml = processedData;
+
+        req.specData.breadcrumb = renderedBreadcrumps;
 
         next();
     } else {
