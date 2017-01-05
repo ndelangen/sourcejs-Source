@@ -9,7 +9,7 @@ var http = require('http');
 
 var ejs = require(path.join(global.pathToApp, 'core/ejsWithHelpers.js'));
 var trackStats = require(path.join(global.pathToApp, 'core/trackStats'));
-var pathToApp = path.dirname(require.main.filename);
+var pathToApp = global.pathToApp;
 var specUtils = require(path.join(pathToApp, 'core/lib/specUtils'));
 var ParseData = require(path.join(pathToApp, 'core/lib/parseData'));
 var specsParser = require(path.join(pathToApp, 'core/lib/specPageParser'));
@@ -210,14 +210,14 @@ var getSectionsIDList = function(sections) {
 };
 
 module.exports.process = function(req, res, next) {
-	var parsedUrl = url.parse(req.url, true);
+    var parsedUrl = url.parse(req.url, true);
 
     // Query params
     var q = parsedUrl.query || {};
     var clarifyFlag = q.clarify;
 
     // Check if middleware needs to be activated
-	if (clarifyFlag) {
+    if (clarifyFlag) {
         var urlPath = parsedUrl.pathname;
         var parsedPath = specUtils.parseSpecUrlPath(urlPath);
 
@@ -314,7 +314,7 @@ module.exports.process = function(req, res, next) {
 
             res.status(500).send(errData.msg);
         });
-	} else {
+    } else {
         // redirect to next express middleware
         next();
     }

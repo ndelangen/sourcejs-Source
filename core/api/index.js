@@ -4,7 +4,7 @@ var express = require('express');
 var path = require('path');
 var ParseData = require(path.join(global.pathToApp, 'core/lib/parseData'));
 var utils = require(path.join(global.pathToApp, 'core/lib/utils'));
-var pathToApp = path.dirname(require.main.filename);
+var pathToApp = global.pathToApp;
 var htmlTree = require(path.join(global.pathToApp, 'core/html-tree'));
 var unflatten = require(path.join(global.pathToApp,'core/unflat'));
 
@@ -227,7 +227,7 @@ apiRouter.use(function(req, res, next) {
 });
 
 apiRouter.get('/', function(req, res) {
-	res.json({ message: 'Hello API' });
+    res.json({ message: 'Hello API' });
 });
 
 apiRouter.route('/specs/raw')
@@ -299,7 +299,7 @@ apiTestRouter.use(function(req, res, next) {
 });
 
 apiTestRouter.get('/', function(req, res) {
-	res.json({ message: 'API Testig env' });
+    res.json({ message: 'API Testig env' });
 });
 
 apiTestRouter.route('/specs')
